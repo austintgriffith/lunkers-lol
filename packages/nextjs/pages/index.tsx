@@ -68,7 +68,7 @@ const Home: NextPage = () => {
       <MetaHeader />
       <div className="flex items-center flex-col flex-grow pt-10">{accountDisplay}</div>
       <div className="flex items-center flex-col flex-grow pt-10 ">
-        <QRCode size={128} value={"https://eth-fish.vercel.app/"} />
+        <QRCode size={128} value={"https://eth-fish-nextjs.vercel.app/"} />
       </div>
     </>
   );
