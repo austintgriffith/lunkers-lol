@@ -3,12 +3,22 @@ import type { NextPage } from "next";
 import QRCode from "react-qr-code";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { Address } from "~~/components/scaffold-eth";
+import { Address, Balance } from "~~/components/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
 
   const [accountDisplay, setAccountDisplay] = useState(<div></div>);
+
+  const [sendTipTo, setSendTipTo] = useState("");
+
+  const { writeAsync: sendTip } = useScaffoldContractWrite({
+    contractName: "YourContract",
+    functionName: "sendTip",
+    args: [sendTipTo, BigInt(0)],
+    value: "0.01",
+  });
 
   const executeFunction = async () => {
     console.log("✅ Checked in!");
@@ -28,12 +38,18 @@ const Home: NextPage = () => {
         return (
           <div key={fisherAddress}>
             <Address address={fisherAddress} />
+            <Balance address={fisherAddress} />
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               onClick={
                 //send eth to this address
                 async () => {
                   console.log("fund", fisherAddress);
+                  setSendTipTo(fisherAddress);
+                  setTimeout(() => {
+                    sendTip();
+                    setSendTipTo("");
+                  }, 500);
                 }
               }
             ></button>

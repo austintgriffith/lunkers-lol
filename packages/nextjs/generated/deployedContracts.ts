@@ -1,148 +1,110 @@
 const contracts = {
-  31337: [
+  100: [
     {
-      chainId: "31337",
-      name: "localhost",
+      chainId: "100",
+      name: "gnosis",
       contracts: {
         YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          address: "0xb58B2FAC2Cebe9124af8c4165336A12Eb5192d07",
           abi: [
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "_owner",
-                  type: "address",
-                },
-              ],
-              stateMutability: "nonpayable",
-              type: "constructor",
-            },
             {
               anonymous: false,
               inputs: [
                 {
                   indexed: true,
                   internalType: "address",
-                  name: "greetingSetter",
+                  name: "from",
                   type: "address",
                 },
                 {
-                  indexed: false,
-                  internalType: "string",
-                  name: "newGreeting",
-                  type: "string",
+                  indexed: true,
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
                 },
                 {
-                  indexed: false,
-                  internalType: "bool",
-                  name: "premium",
-                  type: "bool",
-                },
-                {
-                  indexed: false,
+                  indexed: true,
                   internalType: "uint256",
-                  name: "value",
+                  name: "party",
                   type: "uint256",
                 },
               ],
-              name: "GreetingChange",
+              name: "SendTip",
               type: "event",
             },
             {
-              inputs: [],
-              name: "greeting",
-              outputs: [
-                {
-                  internalType: "string",
-                  name: "",
-                  type: "string",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "owner",
-              outputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "premium",
-              outputs: [
-                {
-                  internalType: "bool",
-                  name: "",
-                  type: "bool",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
               inputs: [
                 {
-                  internalType: "string",
-                  name: "_newGreeting",
-                  type: "string",
+                  internalType: "address payable",
+                  name: "_to",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "_party",
+                  type: "uint256",
                 },
               ],
-              name: "setGreeting",
+              name: "sendTip",
               outputs: [],
               stateMutability: "payable",
               type: "function",
             },
+          ],
+        },
+      },
+    },
+  ],
+  31337: [
+    {
+      chainId: "31337",
+      name: "localhost",
+      contracts: {
+        YourContract: {
+          address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          abi: [
             {
-              inputs: [],
-              name: "totalCounter",
-              outputs: [
+              anonymous: false,
+              inputs: [
                 {
+                  indexed: true,
+                  internalType: "address",
+                  name: "from",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  indexed: true,
                   internalType: "uint256",
-                  name: "",
+                  name: "party",
                   type: "uint256",
                 },
               ],
-              stateMutability: "view",
-              type: "function",
+              name: "SendTip",
+              type: "event",
             },
             {
               inputs: [
                 {
-                  internalType: "address",
-                  name: "",
+                  internalType: "address payable",
+                  name: "_to",
                   type: "address",
                 },
-              ],
-              name: "userGreetingCounter",
-              outputs: [
                 {
                   internalType: "uint256",
-                  name: "",
+                  name: "_party",
                   type: "uint256",
                 },
               ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "withdraw",
+              name: "sendTip",
               outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
               stateMutability: "payable",
-              type: "receive",
+              type: "function",
             },
           ],
         },
