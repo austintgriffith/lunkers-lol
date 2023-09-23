@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
+import QRCode from "react-qr-code";
 import { useAccount } from "wagmi";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { Address } from "~~/components/scaffold-eth";
@@ -57,6 +58,9 @@ const Home: NextPage = () => {
     <>
       <MetaHeader />
       <div className="flex items-center flex-col flex-grow pt-10">{accountDisplay}</div>
+      <div className="flex items-center flex-col flex-grow pt-10 ">
+        <QRCode size={128} value={"https://eth-fish.vercel.app/"} />
+      </div>
     </>
   );
 };
