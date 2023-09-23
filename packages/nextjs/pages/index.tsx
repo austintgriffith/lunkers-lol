@@ -23,11 +23,20 @@ const Home: NextPage = () => {
     const data = await (await res).json();
     const { allStorage } = data;
 
-    const newAccountDisplay = allStorage?.map((address: any) => {
-      if (address) {
+    const newAccountDisplay = allStorage?.map((fisherAddress: any) => {
+      if (fisherAddress) {
         return (
-          <div key={address}>
-            <Address address={address} />
+          <div key={fisherAddress}>
+            <Address address={fisherAddress} />
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={
+                //send eth to this address
+                async () => {
+                  console.log("fund", fisherAddress);
+                }
+              }
+            ></button>
           </div>
         );
       }
