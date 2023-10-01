@@ -1,31 +1,21 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import QRCode from "react-qr-code";
-import { parseEther } from "viem";
-import { useAccount, useBlockNumber, useSendTransaction } from "wagmi";
+import { useAccount, useBlockNumber } from "wagmi";
+import { Fisher } from "~~/components/Fisher";
 import { MetaHeader } from "~~/components/MetaHeader";
-import { Address, Balance } from "~~/components/scaffold-eth";
-import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useScaffoldContract, useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const Home: NextPage = () => {
   const { address } = useAccount();
 
-  const [validBlocks, setValidBlocks] = useState<bigint[]>([]);
-
   const { data: blockNumber } = useBlockNumber({
     onBlock(blockNumber) {
-      console.log("New block: ", blockNumber);
-
-      //TODO: damn i need to check if we catch a fish each blocknumber
-
-      setValidBlocks(validBlocks => [...validBlocks, blockNumber]);
+      console.log("⛓ New Block 📦", blockNumber);
     },
   });
-  console.log("validBlocks", validBlocks);
 
   const [accountDisplay, setAccountDisplay] = useState(<div></div>);
-
-  const [sendTipTo, setSendTipTo] = useState("");
 
   const { data: castedOut } = useScaffoldContractRead({
     contractName: "YourContract",
@@ -44,42 +34,49 @@ const Home: NextPage = () => {
     functionName: "castOut",
     args: [BigInt(0)],
   });
+
+  const { data: castedOutBlock } = useScaffoldContractRead({
+    contractName: "YourContract",
+    functionName: "castedOut",
+    args: [BigInt(0), address],
+  });
+
+  const [foundBlockWithBite, setFoundBlockWithBite] = useState(0n);
+  const [checkedUpToBlock, setCheckedUpToBlock] = useState(0n);
+
   const { writeAsync: reelIn } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "reelIn",
-    args: [BigInt(0), blockNumber],
+    args: [BigInt(0), foundBlockWithBite],
   });
 
-  //TODO: I couldn't ever get this to work because of declaritive stuff :(
-
-  /*
-  const { writeAsync: sendTip } = useScaffoldContractWrite({
+  const { data: yourContract } = useScaffoldContract({
     contractName: "YourContract",
-    functionName: "sendTip",
-    args: [sendTipTo, BigInt(0)],
-    value: "0.01",
-  });*/
-
-  const triggerSendTip = () => {
-    //sendTip();
-    console.log("sending tip to", sendTipTo);
-    sendTransaction();
-
-    setTimeout(() => {
-      setSendTipTo("");
-    }, 500);
-  };
-
-  const doSendTip = async (fisherAddress: any) => {
-    console.log("fund", fisherAddress);
-    setSendTipTo(fisherAddress);
-    setTimeout(triggerSendTip, 500);
-  };
-
-  const { sendTransaction } = useSendTransaction({
-    to: sendTipTo,
-    value: parseEther("0.01"),
   });
+
+  const checkBlocksForBite = async () => {
+    console.log("👀 castedOutBlock", castedOutBlock, "blockNumber", blockNumber);
+    if (yourContract && castedOutBlock && blockNumber) {
+      for (let b = blockNumber - 1n; b > castedOutBlock; b--) {
+        if (b > checkedUpToBlock) {
+          console.log("INSPECTING BLOCK ", b);
+          const bite = await yourContract?.read?.checkForBite([0n, address || "0", b]);
+          console.log(" bite", bite);
+          if (bite) {
+            setFoundBlockWithBite(b);
+            break;
+          }
+        } else {
+          //console.log("already checked ", b);
+        }
+      }
+      setCheckedUpToBlock(blockNumber - 1n);
+    }
+  };
+
+  useEffect(() => {
+    checkBlocksForBite();
+  }, [castedOutBlock, blockNumber, checkBlocksForBite]);
 
   const executeFunction = async () => {
     console.log("✅ Checked in!");
@@ -96,18 +93,7 @@ const Home: NextPage = () => {
 
     const newAccountDisplay = allStorage?.map((fisherAddress: any) => {
       if (fisherAddress) {
-        return (
-          <div key={fisherAddress}>
-            <Address address={fisherAddress} />
-            <Balance address={fisherAddress} />
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => {
-                doSendTip(fisherAddress);
-              }}
-            ></button>
-          </div>
-        );
+        return <Fisher key={fisherAddress} fisherAddress={fisherAddress} />;
       }
     });
     setAccountDisplay(newAccountDisplay);
@@ -132,36 +118,60 @@ const Home: NextPage = () => {
     };
   }, [address]); // The empty dependency array ensures that the effect runs only once when the component mounts
 
+  const [castingOut, setCastingOut] = useState(false);
+
   const castOutButton = (
     <button
-      className="btn btn-primary"
+      disabled={castingOut}
+      className={"btn btn-primary " + (castingOut ? "animate-pulse" : "")}
       onClick={() => {
+        setCastingOut(true);
         castOut();
+        setTimeout(() => {
+          setCastingOut(false);
+        }, 15000);
       }}
     >
-      CAST OUT
+      🪱 CAST OUT
     </button>
   );
 
+  const [reelingIn, setReelingIn] = useState(false);
+
   const reelInButton = (
     <button
-      className="btn btn-primary"
+      disabled={reelingIn}
+      className={"btn btn-primary " + (reelingIn ? "animate-pulse" : "")}
       onClick={() => {
+        setReelingIn(true);
         reelIn();
+        setTimeout(() => {
+          setReelingIn(false);
+        }, 15000);
+        setFoundBlockWithBite(0n);
       }}
     >
-      REEL IN
+      🎣 REEL IN!!!
     </button>
   );
 
   return (
     <>
       <MetaHeader />
-      <div className="flex items-center flex-col flex-grow pt-10">fish caught:{fishCaught?.toString()}</div>
-      <div className="flex items-center flex-col flex-grow pt-10">{castedOut ? reelInButton : castOutButton}</div>
+      <div className="flex items-center flex-col flex-grow pt-10 text-4xl">🐟{fishCaught?.toString()}</div>
+      <div className="flex items-center flex-col flex-grow pt-10">
+        {castedOut && castedOutBlock
+          ? castedOutBlock == blockNumber
+            ? "casting..."
+            : foundBlockWithBite > 0n && foundBlockWithBite > castedOutBlock
+            ? reelInButton
+            : "waiting for a bite..."
+          : castOutButton}
+      </div>
 
       <div className="flex items-center flex-col flex-grow pt-10">{accountDisplay}</div>
       <div className="flex items-center flex-col flex-grow pt-10 ">
+        <div className="text-xs p-1">scan this fishing party to join:</div>
         <QRCode size={128} value={"https://fishingparty.xyz/"} />
       </div>
       <div className="flex items-center flex-col flex-grow pt-10 ">block: {blockNumber?.toString()}</div>

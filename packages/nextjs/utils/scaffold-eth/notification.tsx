@@ -34,7 +34,7 @@ const ENUM_STATUSES = {
 };
 
 const DEFAULT_DURATION = 3000;
-const DEFAULT_POSITION: TPositions = "top-center";
+const DEFAULT_POSITION: TPositions = "bottom-right";
 
 /**
  * Custom Notification

@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 // Useful for debugging. Remove when deploying to a live network.
-import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
 // Use openzeppelin to inherit battle-tested implementations (ERC20, ERC721, etc)
 // import "@openzeppelin/contracts/access/Ownable.sol";
@@ -36,31 +36,31 @@ contract YourContract {
 		if(block.number<blockNumber){
 			return false;
 		}
-		console.log(castedOut[_party][_fisher]);
-		console.log(_fisher);
-		console.log(blockNumber);
+		//console.log(castedOut[_party][_fisher]);
+		//console.log(_fisher);
+		//console.log(blockNumber);
 		if(castedOut[_party][_fisher]>0 && castedOut[_party][_fisher]<blockNumber){
-			console.log("valid");
-			return (uint256(keccak256(abi.encodePacked(blockNumber,address(this),msg.sender,_party,blockhash(castedOut[_party][msg.sender])))) % 2) == 0;
+			//console.log("valid");
+			return (uint256(keccak256(abi.encodePacked(blockhash(blockNumber-1),address(this),_fisher,_party,blockhash(castedOut[_party][_fisher])))) % 9) == 0;
 		}
-		console.log("notvalid");
+		//console.log("notvalid");
 		return false;
 	}
 
 	mapping (address => uint256) public fishCaught;
 
 	function reelIn(uint256 _party,uint256 blockNumber) public {
-		console.log("reelin");
-		console.log(_party);
-		console.log(blockNumber);
+		//console.log("reelin");
+		//console.log(_party);
+		//console.log(blockNumber);
 		require(castedOut[_party][msg.sender]>0, "You need to cast first.");
 		require(castedOut[_party][msg.sender]<block.number, "You are still casting");
 
 		if(checkForBite(_party,msg.sender,blockNumber)){
-			console.log("CAUGHT");
+			//console.log("CAUGHT");
 			fishCaught[msg.sender]++;
 		}else{
-			console.log("NOPE");
+			//console.log("NOPE");
 		}
 		castedOut[_party][msg.sender] = 0;
 

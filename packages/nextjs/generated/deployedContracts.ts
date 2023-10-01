@@ -5,7 +5,7 @@ const contracts = {
       name: "gnosis",
       contracts: {
         YourContract: {
-          address: "0x8548f28896333b5809b1e9B50cbA07d0fdbd7657",
+          address: "0x0D4e6aE27593759cFC8bAD96bf275F86710a5120",
           abi: [
             {
               anonymous: false,
@@ -177,7 +177,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877",
+          address: "0x4EE6eCAD1c2Dae9f525404De8555724e3c35d07B",
           abi: [
             {
               anonymous: false,
