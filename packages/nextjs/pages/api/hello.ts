@@ -10,12 +10,20 @@ export default function handler(req: NextApiRequest, res: NextApiResponse): void
   if (allStorage.indexOf(req.body.address) <= -1) {
     allStorage = [...allStorage, req.body.address];
   }
-  req.body.timestamp = new Date().getTime();
-  console.log("allStorage", allStorage);
+  const currentTime = new Date().getTime();
+  //console.log("currentTime", currentTime);
+  //console.log("allStorage", allStorage);
 
-  for (let i = 0; i < allStorage.length; i++) {
+  timestamps[req.body.address] = currentTime;
+
+  //github.com/austintgriffith/scaffold-eth
+  https: for (let i = 0; i < allStorage.length; i++) {
     //check if time is older than 2 minutes
-    if (timestamps[allStorage[i]] && req.body.timestamp - timestamps[allStorage[i]] > 120000) {
+    //console.log("timestamp is ", timestamps[allStorage[i]]);
+    //console.log("time diff is ", currentTime - timestamps[allStorage[i]]);
+    //console.log("looking up allStorage[i]", i, allStorage[i]);
+    if (timestamps[allStorage[i]] && currentTime - timestamps[allStorage[i]] > 30000) {
+      //console.log("CUTTING OUT ", allStorage[i]);
       allStorage.splice(i, 1);
       delete timestamps[allStorage[i]];
     }

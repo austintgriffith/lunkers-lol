@@ -39,7 +39,7 @@ export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
   }, 5000);
 
   return (
-    <div key={fisherAddress}>
+    <div key={fisherAddress} className="p-1">
       <Address address={fisherAddress} />
       {balance >= parseEther("0.007") ? (
         <div className="flex">
