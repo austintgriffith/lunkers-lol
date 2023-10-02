@@ -165,6 +165,8 @@ const FishingHoleCatchAll: NextPage = () => {
 
   const [copied, setCopied] = useState(false);
 
+  const domain = "https://fishingparty.xyz/";
+
   return (
     <>
       <MetaHeader />
@@ -182,9 +184,9 @@ const FishingHoleCatchAll: NextPage = () => {
       <div className="flex items-center flex-col flex-grow pt-10">{accountDisplay}</div>
       <div className="flex items-center flex-col flex-grow pt-10 ">
         <div className="text-xs p-1">scan this fishing party to join:</div>
-        <QRCode size={128} value={"https://fishingholes.xyz/" + router.query.fishingholes} />
+        <QRCode size={128} value={domain + router.query.fishingholes} />
         <div className="flex text-xs p-1">
-          {"https://fishingholes.xyz/" + router.query.fishingholes}
+          {domain + router.query.fishingholes}
           {copied ? (
             <CheckCircleIcon
               className="ml-1.5 text-xl font-normal text-sky-600 h-5 w-5 cursor-pointer"
@@ -192,7 +194,7 @@ const FishingHoleCatchAll: NextPage = () => {
             />
           ) : (
             <CopyToClipboard
-              text={"https://fishingholes.xyz/" + router.query.fishingholes}
+              text={domain + router.query.fishingholes}
               onCopy={() => {
                 setCopied(true);
                 setTimeout(() => {
