@@ -187,8 +187,8 @@ const FishingHoleCatchAll: NextPage = () => {
         />
       )}
 
-      <div className="flex items-center flex-col flex-grow pt-10 text-7xl z-30">🐟{fishCaught?.toString()}</div>
       <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingTop: "50%" }}>
+        <div className="text-3xl z-30 pb-8">🐟{fishCaught?.toString()}</div>
         {castedOut && castedOutBlock
           ? castedOutBlock == blockNumber
             ? "casting..."
