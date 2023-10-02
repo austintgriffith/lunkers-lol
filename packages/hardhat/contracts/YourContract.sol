@@ -14,22 +14,13 @@ pragma solidity >=0.8.0 <0.9.0;
  */
 contract YourContract {
 
-	event SendTip(address indexed from, address indexed to, uint256 indexed party);
-
-	function sendTip(address payable _to, uint256 _party) public payable {
-		_to.transfer(msg.value);
-		emit SendTip(msg.sender,_to,_party);
-	}
+	mapping (address => mapping (bytes32 => uint256)) public balanceOf;
 
 	mapping (bytes32 => mapping (address => uint256)) public castedOut;
 
 	function castOut(bytes32 _party) public {
 		require(castedOut[_party][msg.sender]==0, "You have already casted out");
 		castedOut[_party][msg.sender] = block.number;
-	}
-
-	function currentBlock() public view returns (uint256) {
-		return block.number;
 	}
 
 	function checkForBite(bytes32 _party, address _fisher, uint256 blockNumber) public view returns (bool) {
@@ -47,8 +38,6 @@ contract YourContract {
 		return false;
 	}
 
-	mapping (address => mapping (bytes32 => uint256)) public fishCaught;
-
 	function reelIn(bytes32 _party,uint256 blockNumber) public {
 		//console.log("reelin");
 		//console.log(_party);
@@ -58,7 +47,7 @@ contract YourContract {
 
 		if(checkForBite(_party,msg.sender,blockNumber)){
 			//console.log("CAUGHT");
-			fishCaught[msg.sender][_party]++;
+			balanceOf[msg.sender][_party]++;
 		}else{
 			//console.log("NOPE");
 		}

@@ -5,39 +5,38 @@ const contracts = {
       name: "gnosis",
       contracts: {
         YourContract: {
-          address: "0x0D4e6aE27593759cFC8bAD96bf275F86710a5120",
+          address: "0x7C68f73cbff2cefb502f0646949D9eB595B189c7",
           abi: [
             {
-              anonymous: false,
               inputs: [
                 {
-                  indexed: true,
                   internalType: "address",
-                  name: "from",
+                  name: "",
                   type: "address",
                 },
                 {
-                  indexed: true,
-                  internalType: "address",
-                  name: "to",
-                  type: "address",
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
                 },
+              ],
+              name: "balanceOf",
+              outputs: [
                 {
-                  indexed: true,
                   internalType: "uint256",
-                  name: "party",
+                  name: "",
                   type: "uint256",
                 },
               ],
-              name: "SendTip",
-              type: "event",
+              stateMutability: "view",
+              type: "function",
             },
             {
               inputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "_party",
-                  type: "uint256",
+                  type: "bytes32",
                 },
               ],
               name: "castOut",
@@ -48,9 +47,9 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "",
-                  type: "uint256",
+                  type: "bytes32",
                 },
                 {
                   internalType: "address",
@@ -72,9 +71,9 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "_party",
-                  type: "uint256",
+                  type: "bytes32",
                 },
                 {
                   internalType: "address",
@@ -99,43 +98,11 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
-              name: "currentBlock",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
               inputs: [
                 {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              name: "fishCaught",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "_party",
-                  type: "uint256",
+                  type: "bytes32",
                 },
                 {
                   internalType: "uint256",
@@ -146,24 +113,6 @@ const contracts = {
               name: "reelIn",
               outputs: [],
               stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address payable",
-                  name: "_to",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "_party",
-                  type: "uint256",
-                },
-              ],
-              name: "sendTip",
-              outputs: [],
-              stateMutability: "payable",
               type: "function",
             },
           ],
@@ -177,32 +126,31 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x2B0d36FACD61B71CC05ab8F3D2355ec3631C0dd5",
+          address: "0x34B40BA116d5Dec75548a9e9A8f15411461E8c70",
           abi: [
             {
-              anonymous: false,
               inputs: [
                 {
-                  indexed: true,
                   internalType: "address",
-                  name: "from",
+                  name: "",
                   type: "address",
                 },
                 {
-                  indexed: true,
-                  internalType: "address",
-                  name: "to",
-                  type: "address",
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
                 },
+              ],
+              name: "balanceOf",
+              outputs: [
                 {
-                  indexed: true,
                   internalType: "uint256",
-                  name: "party",
+                  name: "",
                   type: "uint256",
                 },
               ],
-              name: "SendTip",
-              type: "event",
+              stateMutability: "view",
+              type: "function",
             },
             {
               inputs: [
@@ -271,43 +219,6 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
-              name: "currentBlock",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-                {
-                  internalType: "bytes32",
-                  name: "",
-                  type: "bytes32",
-                },
-              ],
-              name: "fishCaught",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
               inputs: [
                 {
                   internalType: "bytes32",
@@ -323,24 +234,6 @@ const contracts = {
               name: "reelIn",
               outputs: [],
               stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address payable",
-                  name: "_to",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "_party",
-                  type: "uint256",
-                },
-              ],
-              name: "sendTip",
-              outputs: [],
-              stateMutability: "payable",
               type: "function",
             },
           ],

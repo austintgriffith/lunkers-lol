@@ -33,7 +33,7 @@ const FishingHoleCatchAll: NextPage = () => {
 
   const { data: fishCaught } = useScaffoldContractRead({
     contractName: "YourContract",
-    functionName: "fishCaught",
+    functionName: "balanceOf",
     args: [address, bytesStringForRoom],
   });
 

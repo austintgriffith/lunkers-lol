@@ -1,0 +1,45 @@
+{
+
+    "name": "FishingParty",
+
+    "short_name": "FishingParty",
+
+    "description": "catch lunkers with your friends onchain",
+
+    "start_url": "/",
+
+    "display": "fullscreen",
+
+    "background_color": "#ffffff",
+
+    "theme_color": "#000000",
+
+    "orientation": "portrait",
+
+    "icons": [
+
+      {
+
+        "src": "/logo.svg",
+
+        "sizes": "192x192",
+
+        "type": "image/svg"
+
+      },
+
+      {
+
+        "src": "/logo.svg",
+
+        "sizes": "512x512",
+
+        "type": "image/svg"
+
+      }
+
+    ]
+
+  }
+
+

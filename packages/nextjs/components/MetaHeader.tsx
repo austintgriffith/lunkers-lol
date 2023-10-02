@@ -24,6 +24,8 @@ export const MetaHeader = ({
 
   return (
     <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=0.77"></meta>
+      <link rel="manifest" href="/manifest.json" />
       {title && (
         <>
           <title>{title}</title>

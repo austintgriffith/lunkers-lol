@@ -42,7 +42,7 @@ export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
 
   const { data: fishCaught } = useScaffoldContractRead({
     contractName: "YourContract",
-    functionName: "fishCaught",
+    functionName: "balanceOf",
     args: [fisherAddress, bytesStringForRoom],
   });
 
