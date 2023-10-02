@@ -177,19 +177,17 @@ const FishingHoleCatchAll: NextPage = () => {
       <MetaHeader />
       {castedOut ? (
         <div
-          className="absolute bg-cover h-screen w-screen bg-no-repeat z-10"
-          style={{ backgroundImage: "url('/background_fishing.png')" }}
+          className="absolute bg-cover w-screen bg-no-repeat z-10"
+          style={{ minHeight: 420, backgroundImage: "url('/background_fishing.png')" }}
         />
       ) : (
         <div
-          className="absolute bg-cover h-screen w-screen bg-no-repeat z-10"
-          style={{ backgroundImage: "url('/background_baiting.png')" }}
+          className="absolute bg-cover w-screen bg-no-repeat z-10"
+          style={{ minHeight: 420, backgroundImage: "url('/background_baiting.png')" }}
         />
       )}
 
-      <div className="fixed right-10  top-10 flex items-center flex-col flex-grow pt-10 text-7xl z-30">
-        🐟{fishCaught?.toString()}
-      </div>
+      <div className="flex items-center flex-col flex-grow pt-10 text-7xl z-30">🐟{fishCaught?.toString()}</div>
       <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingTop: "50%" }}>
         {castedOut && castedOutBlock
           ? castedOutBlock == blockNumber
@@ -233,10 +231,23 @@ const FishingHoleCatchAll: NextPage = () => {
       </div>
 
       <div className="flex items-center flex-col flex-grow pt-10 z-30">block: {blockNumber?.toString()}</div>
+
       <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingBottom: 200 }}>
         {" "}
         <button
-          className={"btn btn-secondary " + (castingOut ? "animate-pulse" : "")}
+          className={"btn btn-secondary "}
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          🔄 reload
+        </button>
+      </div>
+
+      <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingBottom: 200 }}>
+        {" "}
+        <button
+          className={"btn btn-secondary "}
           onClick={() => {
             window.location.href = "/";
           }}
