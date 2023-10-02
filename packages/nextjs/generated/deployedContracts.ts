@@ -5,7 +5,7 @@ const contracts = {
       name: "gnosis",
       contracts: {
         YourContract: {
-          address: "0x7C68f73cbff2cefb502f0646949D9eB595B189c7",
+          address: "0xe05dD8B4A5c1a8db7542f3B7dc88B824180F371B",
           abi: [
             {
               inputs: [

@@ -32,7 +32,7 @@ contract YourContract {
 		//console.log(blockNumber);
 		if(castedOut[_party][_fisher]>0 && castedOut[_party][_fisher]<blockNumber){
 			//console.log("valid");
-			return (uint256(keccak256(abi.encodePacked(blockhash(blockNumber-1),address(this),_fisher,_party,blockhash(castedOut[_party][_fisher])))) % 9) == 0;
+			return (uint256(keccak256(abi.encodePacked(blockhash(blockNumber-1),address(this),_fisher,_party,blockhash(castedOut[_party][_fisher])))) % 7) == 0;
 		}
 		//console.log("notvalid");
 		return false;

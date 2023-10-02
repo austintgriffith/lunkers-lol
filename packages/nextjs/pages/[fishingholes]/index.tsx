@@ -10,6 +10,8 @@ import { Fisher } from "~~/components/Fisher";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContract, useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
+const domain = "https://fishingparty.xyz/";
+
 const FishingHoleCatchAll: NextPage = () => {
   const router = useRouter();
 
@@ -170,8 +172,6 @@ const FishingHoleCatchAll: NextPage = () => {
   );
 
   const [copied, setCopied] = useState(false);
-
-  const domain = "https://fishingparty.xyz/";
 
   //const installType = window && window?.matchMedia("(display-mode: standalone)").matches ? "standalone" : "browser";
 
