@@ -46,6 +46,8 @@ export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
     args: [fisherAddress, bytesStringForRoom],
   });
 
+  const [gassingUp, setGassingUp] = useState(false);
+
   return (
     <div key={fisherAddress} className="p-1">
       <Address address={fisherAddress} />
@@ -58,9 +60,13 @@ export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
         "🥹 waiting for gas..."
       ) : (
         <button
-          className="btn py-2 mb-2"
+          className={"btn btn-secondary py-2 mb-4 mt-2  " + (gassingUp ? "animate-pulse" : "")}
+          disabled={gassingUp}
           onClick={async () => {
+            setGassingUp(true);
             sendTransaction();
+            await new Promise(resolve => setTimeout(resolve, 16000));
+            setGassingUp(false);
           }}
         >
           ⛽️ gas em up

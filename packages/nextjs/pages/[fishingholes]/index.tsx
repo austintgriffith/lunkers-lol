@@ -107,6 +107,9 @@ const FishingHoleCatchAll: NextPage = () => {
         return <Fisher key={fisherAddress} fisherAddress={fisherAddress} />;
       }
     });
+
+    console.log("😎 SORT newAccountDisplay", newAccountDisplay);
+
     setAccountDisplay(newAccountDisplay);
   };
 
