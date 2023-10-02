@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import type { NextPage } from "next";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import QRCode from "react-qr-code";
+import { stringToHex } from "viem";
 import { useAccount, useBlockNumber } from "wagmi";
 import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { Fisher } from "~~/components/Fisher";
@@ -11,6 +12,8 @@ import { useScaffoldContract, useScaffoldContractRead, useScaffoldContractWrite 
 
 const FishingHoleCatchAll: NextPage = () => {
   const router = useRouter();
+
+  const bytesStringForRoom = stringToHex("" + router.query.fishingholes, { size: 32 });
 
   const { address } = useAccount();
 
@@ -25,25 +28,25 @@ const FishingHoleCatchAll: NextPage = () => {
   const { data: castedOut } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "castedOut",
-    args: [BigInt(0), address],
+    args: [bytesStringForRoom, address],
   });
 
   const { data: fishCaught } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "fishCaught",
-    args: [address],
+    args: [address, bytesStringForRoom],
   });
 
   const { writeAsync: castOut } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "castOut",
-    args: [BigInt(0)],
+    args: [bytesStringForRoom],
   });
 
   const { data: castedOutBlock } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "castedOut",
-    args: [BigInt(0), address],
+    args: [bytesStringForRoom, address],
   });
 
   const [foundBlockWithBite, setFoundBlockWithBite] = useState(0n);
@@ -52,7 +55,7 @@ const FishingHoleCatchAll: NextPage = () => {
   const { writeAsync: reelIn } = useScaffoldContractWrite({
     contractName: "YourContract",
     functionName: "reelIn",
-    args: [BigInt(0), foundBlockWithBite],
+    args: [bytesStringForRoom, foundBlockWithBite],
   });
 
   const { data: yourContract } = useScaffoldContract({
@@ -65,7 +68,7 @@ const FishingHoleCatchAll: NextPage = () => {
       for (let b = blockNumber - 1n; b > castedOutBlock; b--) {
         if (b > checkedUpToBlock) {
           console.log("INSPECTING BLOCK ", b);
-          const bite = await yourContract?.read?.checkForBite([0n, address || "0", b]);
+          const bite = await yourContract?.read?.checkForBite([bytesStringForRoom, address || "0", b]);
           console.log(" bite", bite);
           if (bite) {
             setFoundBlockWithBite(b);
@@ -167,6 +170,8 @@ const FishingHoleCatchAll: NextPage = () => {
 
   const domain = "https://fishingparty.xyz/";
 
+  //const installType = window && window?.matchMedia("(display-mode: standalone)").matches ? "standalone" : "browser";
+
   return (
     <>
       <MetaHeader />
@@ -183,7 +188,7 @@ const FishingHoleCatchAll: NextPage = () => {
 
       <div className="flex items-center flex-col flex-grow pt-10">{accountDisplay}</div>
       <div className="flex items-center flex-col flex-grow pt-10 ">
-        <div className="text-xs p-1">scan this fishing party to join:</div>
+        <div className="text-xs p-1">scan this to join:</div>
         <QRCode size={128} value={domain + router.query.fishingholes} />
         <div className="flex text-xs p-1">
           {domain + router.query.fishingholes}
@@ -210,6 +215,7 @@ const FishingHoleCatchAll: NextPage = () => {
           )}
         </div>
       </div>
+
       <div className="flex items-center flex-col flex-grow pt-10 ">block: {blockNumber?.toString()}</div>
       <div className="flex items-center flex-col flex-grow pt-10 ">
         {" "}

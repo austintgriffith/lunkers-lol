@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Address, Balance } from "./scaffold-eth";
 import { useInterval } from "usehooks-ts";
-import { parseEther } from "viem";
+import { parseEther, stringToHex } from "viem";
 import { useAccount, usePublicClient, useSendTransaction } from "wagmi";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
+  const router = useRouter();
+
   const publicClient = usePublicClient();
 
   const { sendTransaction } = useSendTransaction({
     to: fisherAddress,
     value: parseEther("0.01"),
-  });
-
-  const { data: fishCaught } = useScaffoldContractRead({
-    contractName: "YourContract",
-    functionName: "fishCaught",
-    args: [fisherAddress],
   });
 
   const [balance, setBalance] = useState(0n);
@@ -37,6 +34,17 @@ export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
   useInterval(() => {
     checkBalance();
   }, 5000);
+  //console.log("ROOM NAMe", router.query.fishingholes);
+
+  const bytesStringForRoom = stringToHex("" + router.query.fishingholes, { size: 32 });
+
+  //console.log("bytesStringForRoom", bytesStringForRoom);
+
+  const { data: fishCaught } = useScaffoldContractRead({
+    contractName: "YourContract",
+    functionName: "fishCaught",
+    args: [fisherAddress, bytesStringForRoom],
+  });
 
   return (
     <div key={fisherAddress} className="p-1">

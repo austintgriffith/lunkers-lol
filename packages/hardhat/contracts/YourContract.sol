@@ -21,9 +21,9 @@ contract YourContract {
 		emit SendTip(msg.sender,_to,_party);
 	}
 
-	mapping (uint256 => mapping (address => uint256)) public castedOut;
+	mapping (bytes32 => mapping (address => uint256)) public castedOut;
 
-	function castOut(uint256 _party) public {
+	function castOut(bytes32 _party) public {
 		require(castedOut[_party][msg.sender]==0, "You have already casted out");
 		castedOut[_party][msg.sender] = block.number;
 	}
@@ -32,7 +32,7 @@ contract YourContract {
 		return block.number;
 	}
 
-	function checkForBite(uint256 _party, address _fisher, uint256 blockNumber) public view returns (bool) {
+	function checkForBite(bytes32 _party, address _fisher, uint256 blockNumber) public view returns (bool) {
 		if(block.number<blockNumber){
 			return false;
 		}
@@ -47,9 +47,9 @@ contract YourContract {
 		return false;
 	}
 
-	mapping (address => uint256) public fishCaught;
+	mapping (address => mapping (bytes32 => uint256)) public fishCaught;
 
-	function reelIn(uint256 _party,uint256 blockNumber) public {
+	function reelIn(bytes32 _party,uint256 blockNumber) public {
 		//console.log("reelin");
 		//console.log(_party);
 		//console.log(blockNumber);
@@ -58,7 +58,7 @@ contract YourContract {
 
 		if(checkForBite(_party,msg.sender,blockNumber)){
 			//console.log("CAUGHT");
-			fishCaught[msg.sender]++;
+			fishCaught[msg.sender][_party]++;
 		}else{
 			//console.log("NOPE");
 		}

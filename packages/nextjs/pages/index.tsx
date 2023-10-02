@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
         <div className="p-10 text-xs">
           {" "}
-          <b>🤳 or scan game QR with phone camera to join</b>
+          <b>🤳 or scan QR with camera to join</b>
         </div>
       </div>
     </>

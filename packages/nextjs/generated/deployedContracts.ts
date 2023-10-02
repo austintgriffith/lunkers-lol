@@ -177,7 +177,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x4EE6eCAD1c2Dae9f525404De8555724e3c35d07B",
+          address: "0x2B0d36FACD61B71CC05ab8F3D2355ec3631C0dd5",
           abi: [
             {
               anonymous: false,
@@ -207,9 +207,9 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "_party",
-                  type: "uint256",
+                  type: "bytes32",
                 },
               ],
               name: "castOut",
@@ -220,9 +220,9 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "",
-                  type: "uint256",
+                  type: "bytes32",
                 },
                 {
                   internalType: "address",
@@ -244,9 +244,9 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "_party",
-                  type: "uint256",
+                  type: "bytes32",
                 },
                 {
                   internalType: "address",
@@ -290,6 +290,11 @@ const contracts = {
                   name: "",
                   type: "address",
                 },
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
               ],
               name: "fishCaught",
               outputs: [
@@ -305,9 +310,9 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
+                  internalType: "bytes32",
                   name: "_party",
-                  type: "uint256",
+                  type: "bytes32",
                 },
                 {
                   internalType: "uint256",
