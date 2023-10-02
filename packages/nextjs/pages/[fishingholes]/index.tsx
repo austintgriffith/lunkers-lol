@@ -178,12 +178,12 @@ const FishingHoleCatchAll: NextPage = () => {
       {castedOut ? (
         <div
           className="absolute bg-cover w-screen bg-no-repeat z-10"
-          style={{ minHeight: 420, backgroundImage: "url('/background_fishing.png')" }}
+          style={{ minHeight: 420, maxWidth: 680, backgroundImage: "url('/background_fishing.png')" }}
         />
       ) : (
         <div
           className="absolute bg-cover w-screen bg-no-repeat z-10"
-          style={{ minHeight: 420, backgroundImage: "url('/background_baiting.png')" }}
+          style={{ minHeight: 420, maxWidth: 680, backgroundImage: "url('/background_baiting.png')" }}
         />
       )}
 
