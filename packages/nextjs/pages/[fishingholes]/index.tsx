@@ -175,8 +175,22 @@ const FishingHoleCatchAll: NextPage = () => {
   return (
     <>
       <MetaHeader />
-      <div className="flex items-center flex-col flex-grow pt-10 text-4xl">🐟{fishCaught?.toString()}</div>
-      <div className="flex items-center flex-col flex-grow pt-10">
+      {castedOut ? (
+        <div
+          className="absolute bg-cover h-screen w-screen bg-no-repeat z-10"
+          style={{ backgroundImage: "url('/background_fishing.png')" }}
+        />
+      ) : (
+        <div
+          className="absolute bg-cover h-screen w-screen bg-no-repeat z-10"
+          style={{ backgroundImage: "url('/background_baiting.png')" }}
+        />
+      )}
+
+      <div className="fixed right-10  top-10 flex items-center flex-col flex-grow pt-10 text-7xl z-30">
+        🐟{fishCaught?.toString()}
+      </div>
+      <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingTop: "50%" }}>
         {castedOut && castedOutBlock
           ? castedOutBlock == blockNumber
             ? "casting..."
@@ -186,10 +200,12 @@ const FishingHoleCatchAll: NextPage = () => {
           : castOutButton}
       </div>
 
-      <div className="flex items-center flex-col flex-grow pt-10">{accountDisplay}</div>
-      <div className="flex items-center flex-col flex-grow pt-10 ">
-        <div className="text-xs p-1">scan this to join:</div>
-        <QRCode size={128} value={domain + router.query.fishingholes} />
+      <div className="flex items-center flex-col flex-grow pt-10 z-30">{accountDisplay}</div>
+      <div className="flex items-center flex-col flex-grow pt-10 z-30 ">
+        <div className="text-xs p-4 pt-10">scan this to join:</div>
+        <div className="p-2" style={{ backgroundColor: "#FFF" }}>
+          <QRCode size={128} value={domain + router.query.fishingholes} />
+        </div>
         <div className="flex text-xs p-1">
           {domain + router.query.fishingholes}
           {copied ? (
@@ -216,11 +232,11 @@ const FishingHoleCatchAll: NextPage = () => {
         </div>
       </div>
 
-      <div className="flex items-center flex-col flex-grow pt-10 ">block: {blockNumber?.toString()}</div>
-      <div className="flex items-center flex-col flex-grow pt-10 ">
+      <div className="flex items-center flex-col flex-grow pt-10 z-30">block: {blockNumber?.toString()}</div>
+      <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingBottom: 200 }}>
         {" "}
         <button
-          className={"btn " + (castingOut ? "animate-pulse" : "")}
+          className={"btn btn-secondary " + (castingOut ? "animate-pulse" : "")}
           onClick={() => {
             window.location.href = "/";
           }}

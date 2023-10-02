@@ -5,7 +5,13 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaHeader />
-      <div className="flex items-center flex-col flex-grow pt-10 text-4xl p-10">
+
+      <div
+        className="absolute bg-cover h-screen w-screen bg-no-repeat z-10 opacity-30"
+        style={{ backgroundImage: "url('/background.png')" }}
+      ></div>
+
+      <div className="flex items-center flex-col flex-grow pt-10 text-4xl p-10 z-20">
         <div className="p-10">
           <button
             className="btn btn-primary btn-lg "

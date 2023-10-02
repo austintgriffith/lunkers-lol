@@ -42,7 +42,7 @@ export const Header = () => {
             <div className="flex relative w-10 h-10 text-4xl">🐟</div>
             <div className="flex flex-col">
               <span className="font-bold leading-tight">FishingParty.xyz</span>
-              <span className="text-xs">catching lunkers with friends onchain</span>
+              <span className="text-xs">catch lunkers with friends onchain</span>
             </div>
           </Link>
           <ul className="lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
