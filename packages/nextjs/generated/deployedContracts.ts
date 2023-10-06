@@ -5,7 +5,7 @@ const contracts = {
       name: "gnosis",
       contracts: {
         YourContract: {
-          address: "0xe05dD8B4A5c1a8db7542f3B7dc88B824180F371B",
+          address: "0xc60cc17143fc9726084dEe471074E9c750b75d31",
           abi: [
             {
               inputs: [
@@ -26,6 +26,30 @@ const contracts = {
                   internalType: "uint256",
                   name: "",
                   type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "bytes32",
+                  name: "_party",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "address[]",
+                  name: "_fishers",
+                  type: "address[]",
+                },
+              ],
+              name: "balancesOf",
+              outputs: [
+                {
+                  internalType: "uint256[]",
+                  name: "",
+                  type: "uint256[]",
                 },
               ],
               stateMutability: "view",
@@ -89,9 +113,9 @@ const contracts = {
               name: "checkForBite",
               outputs: [
                 {
-                  internalType: "bool",
+                  internalType: "bytes32",
                   name: "",
-                  type: "bool",
+                  type: "bytes32",
                 },
               ],
               stateMutability: "view",
@@ -126,7 +150,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x34B40BA116d5Dec75548a9e9A8f15411461E8c70",
+          address: "0x5eb3Bc0a489C5A8288765d2336659EbCA68FCd00",
           abi: [
             {
               inputs: [
@@ -147,6 +171,30 @@ const contracts = {
                   internalType: "uint256",
                   name: "",
                   type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "bytes32",
+                  name: "_party",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "address[]",
+                  name: "_fishers",
+                  type: "address[]",
+                },
+              ],
+              name: "balancesOf",
+              outputs: [
+                {
+                  internalType: "uint256[]",
+                  name: "",
+                  type: "uint256[]",
                 },
               ],
               stateMutability: "view",
@@ -210,9 +258,9 @@ const contracts = {
               name: "checkForBite",
               outputs: [
                 {
-                  internalType: "bool",
+                  internalType: "bytes32",
                   name: "",
-                  type: "bool",
+                  type: "bytes32",
                 },
               ],
               stateMutability: "view",

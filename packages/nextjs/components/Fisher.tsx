@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { Address, Balance } from "./scaffold-eth";
 import { useInterval } from "usehooks-ts";
-import { parseEther, stringToHex } from "viem";
+import { parseEther } from "viem";
 import { useAccount, usePublicClient, useSendTransaction } from "wagmi";
-import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
-  const router = useRouter();
-
+export const Fisher = ({ fisherAddress, fisherBalance }: { fisherAddress?: string; fisherBalance?: bigint }) => {
   const publicClient = usePublicClient();
 
   const { sendTransaction } = useSendTransaction({
@@ -34,17 +30,6 @@ export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
   useInterval(() => {
     checkBalance();
   }, 5000);
-  //console.log("ROOM NAMe", router.query.fishingholes);
-
-  const bytesStringForRoom = stringToHex("" + router.query.fishingholes, { size: 32 });
-
-  //console.log("bytesStringForRoom", bytesStringForRoom);
-
-  const { data: fishCaught } = useScaffoldContractRead({
-    contractName: "YourContract",
-    functionName: "balanceOf",
-    args: [fisherAddress, bytesStringForRoom],
-  });
 
   const [gassingUp, setGassingUp] = useState(false);
 
@@ -54,7 +39,7 @@ export const Fisher = ({ fisherAddress }: { fisherAddress?: string }) => {
       {balance >= parseEther("0.007") ? (
         <div className="flex">
           <Balance address={fisherAddress} />
-          🐟{fishCaught?.toString()}
+          🐟{fisherBalance ? fisherBalance?.toString() : "..."}
         </div>
       ) : address?.toLowerCase() === fisherAddress?.toLowerCase() ? (
         "🥹 waiting for gas..."

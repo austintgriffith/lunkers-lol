@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import AccountDisplay from "./accountdisplay";
 import type { NextPage } from "next";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import QRCode from "react-qr-code";
 import { stringToHex } from "viem";
 import { useAccount, useBlockNumber } from "wagmi";
 import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
-import { Fisher } from "~~/components/Fisher";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContract, useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -24,8 +24,6 @@ const FishingHoleCatchAll: NextPage = () => {
       console.log("⛓ New Block 📦", blockNumber);
     },
   });
-
-  const [accountDisplay, setAccountDisplay] = useState(<div></div>);
 
   const { data: castedOut } = useScaffoldContractRead({
     contractName: "YourContract",
@@ -72,7 +70,7 @@ const FishingHoleCatchAll: NextPage = () => {
           console.log("INSPECTING BLOCK ", b);
           const bite = await yourContract?.read?.checkForBite([bytesStringForRoom, address || "0", b]);
           console.log(" bite", bite);
-          if (bite) {
+          if (bite != "0x0000000000000000000000000000000000000000000000000000000000000000") {
             setFoundBlockWithBite(b);
             break;
           }
@@ -87,52 +85,6 @@ const FishingHoleCatchAll: NextPage = () => {
   useEffect(() => {
     checkBlocksForBite();
   }, [castedOutBlock, blockNumber, checkBlocksForBite]);
-
-  const executeFunction = async () => {
-    console.log("✅ Checked in!");
-    console.log("router.query.fishingholes", router.query.fishingholes);
-    const outgoingString = JSON.stringify({ fishingHole: router.query.fishingholes, address: address });
-    console.log("outgoingString", outgoingString);
-    // Your code here
-    const res = fetch("/api/checkin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: outgoingString,
-    });
-    const data = await (await res).json();
-    const { allStorage } = data;
-
-    const newAccountDisplay = allStorage?.map((fisherAddress: any) => {
-      if (fisherAddress) {
-        return <Fisher key={fisherAddress} fisherAddress={fisherAddress} />;
-      }
-    });
-
-    console.log("😎 SORT newAccountDisplay", newAccountDisplay);
-
-    setAccountDisplay(newAccountDisplay);
-  };
-
-  // yo chat gpt gimme a function that runs at start and every 5 s checking in with my address
-  useEffect(() => {
-    if (!address) {
-      return;
-    }
-    // Function to be executed on page load and every 5 seconds
-
-    // Execute the function immediately upon page load
-    executeFunction();
-
-    // Set an interval to execute the function every 5 seconds
-    const intervalId = setInterval(executeFunction, 5000);
-
-    // Cleanup: clear the interval when the component is unmounted
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [address, router]); // The empty dependency array ensures that the effect runs only once when the component mounts
 
   const [castingOut, setCastingOut] = useState(false);
 
@@ -201,7 +153,8 @@ const FishingHoleCatchAll: NextPage = () => {
           : castOutButton}
       </div>
 
-      <div className="flex items-center flex-col flex-grow pt-10 z-30">{accountDisplay}</div>
+      <AccountDisplay />
+
       <div className="flex items-center flex-col flex-grow pt-10 z-30 ">
         <div className="text-xs p-4 pt-10">scan this to join:</div>
         <div className="p-2" style={{ backgroundColor: "#FFF" }}>
