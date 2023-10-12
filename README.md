@@ -1,4 +1,4 @@
-# 🎣 Eth . Fish
+# 🎣 FishingParty.xyz
 
 Casual group game to teach Ethereum asset custody using burner wallets as PWAs
 
