@@ -34,7 +34,7 @@ contract YourContract {
 
 	mapping (bytes32 => mapping (address => uint256)) public castedOut;
 
-	uint8 constant CHANCE_IN_100_TO_CATCH = 30;// % 
+	uint8 constant CHANCE_IN_100_TO_CATCH = 15;// % 
 
 	function castOut(bytes32 _party) public {
 		require(castedOut[_party][msg.sender]==0, "You have already casted out");
