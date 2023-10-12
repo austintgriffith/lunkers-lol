@@ -73,7 +73,7 @@ const AccountDisplay: NextPage = () => {
     const newAccountDisplay = sortedAccountsWithBalances
       ?.map((item: any) => {
         if (item) {
-          return <Fisher key={item.account} fisherAddress={item.account} fisherBalance={item.balance} />;
+          return <Fisher key={item.account} playerAddress={address} fisherAddress={item.account} />;
         }
       })
       .filter(Boolean); // filter out any undefined values

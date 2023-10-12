@@ -124,7 +124,7 @@ const FishingHoleCatchAll: NextPage = () => {
     <div>
       <Confetti
         numberOfPieces={69}
-        gravity={0.42}
+        gravity={0.2}
         width={width}
         height={height}
         drawShape={ctx => {
@@ -167,7 +167,7 @@ const FishingHoleCatchAll: NextPage = () => {
           style={{ backgroundImage: "url('/background_baiting.png')" }}
         />
       )}
-      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginTop: "69%" }}>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginTop: "calc(40% + 200px)" }}>
         <div className="text-3xl z-0 pb-8">🐟{fishCaught?.toString()}</div>
         {castedOut && castedOutBlock ? (
           castedOutBlock == blockNumber ? (

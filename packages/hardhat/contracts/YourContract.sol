@@ -14,7 +14,23 @@ import "hardhat/console.sol";
  */
 contract YourContract {
 
+	//mapping (address => mapping (uint256 => bytes32)) public fishBytes;
+
+	mapping (address => mapping (bytes32 => mapping(uint256 => uint256))) public fishType;
+
+	function getAllFishTypes(address _fisher, bytes32 _party) public view returns (uint256[] memory) {
+		uint256[] memory _fishTypes = new uint256[](balanceOf[_fisher][_party]);
+		for(uint256 i=0;i<balanceOf[_fisher][_party];i++){
+			_fishTypes[i] = fishType[_fisher][_party][i];
+		}
+		return _fishTypes;
+	}
+
+	//mapping (address => mapping (uint256 => uint8)) public fishWeight;
+
 	mapping (address => mapping (bytes32 => uint256)) public balanceOf;
+
+	//mapping (address => mapping (bytes32 => uint256)) public totalWeight;
 
 	mapping (bytes32 => mapping (address => uint256)) public castedOut;
 
@@ -63,8 +79,8 @@ contract YourContract {
 		bytes32 fish = checkForBite(_party,msg.sender,blockNumber);
 
 		if(fish!=bytes32(0)){
-			console.log("CAUGHT",uint256(fish)%1000);
-			balanceOf[msg.sender][_party]++;
+			console.log("CAUGHT",uint256(fish));
+			fishType[msg.sender][_party][balanceOf[msg.sender][_party]++] = uint256(fish)%7;
 		}else{
 			console.log("NOPE");
 		}
