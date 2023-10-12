@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0 <0.9.0;
 
 // Useful for debugging. Remove when deploying to a live network.
-import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
 // Use openzeppelin to inherit battle-tested implementations (ERC20, ERC721, etc)
 // import "@openzeppelin/contracts/access/Ownable.sol";
@@ -79,10 +79,10 @@ contract YourContract {
 		bytes32 fish = checkForBite(_party,msg.sender,blockNumber);
 
 		if(fish!=bytes32(0)){
-			console.log("CAUGHT",uint256(fish));
+			//console.log("CAUGHT",uint256(fish));
 			fishType[msg.sender][_party][balanceOf[msg.sender][_party]++] = uint256(fish)%7;
 		}else{
-			console.log("NOPE");
+			//console.log("NOPE");
 		}
 		castedOut[_party][msg.sender] = 0;
 
