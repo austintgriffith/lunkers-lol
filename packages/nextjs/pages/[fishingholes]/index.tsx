@@ -123,12 +123,12 @@ const FishingHoleCatchAll: NextPage = () => {
   const reelInButton = (
     <div>
       <Confetti
-        numberOfPieces={69}
+        numberOfPieces={32}
         gravity={0.2}
         width={width}
         height={height}
         drawShape={ctx => {
-          ctx.font = "28px Arial";
+          ctx.font = "64px Arial";
           ctx.fillText("🐟", 0, 0);
         }}
       />
@@ -167,7 +167,7 @@ const FishingHoleCatchAll: NextPage = () => {
           style={{ backgroundImage: "url('/background_baiting.png')" }}
         />
       )}
-      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginTop: "calc(40% + 200px)" }}>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginTop: "calc(20% + 420px)" }}>
         <div className="text-3xl z-0 pb-8">🐟{fishCaught?.toString()}</div>
         {castedOut && castedOutBlock ? (
           castedOutBlock == blockNumber ? (
