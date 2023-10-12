@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AccountDisplay from "./accountdisplay";
 import type { NextPage } from "next";
+import Confetti from "react-confetti";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import QRCode from "react-qr-code";
+import { useWindowSize } from "usehooks-ts";
 import { useLocalStorage } from "usehooks-ts";
 import { stringToHex } from "viem";
 import { useAccount, useBlockNumber } from "wagmi";
@@ -96,12 +98,14 @@ const FishingHoleCatchAll: NextPage = () => {
     checkBlocksForBite();
   }, [castedOutBlock, blockNumber, checkBlocksForBite]);
 
+  const { width, height } = useWindowSize();
+
   const [castingOut, setCastingOut] = useState(false);
 
   const castOutButton = (
     <button
       disabled={castingOut}
-      className={"btn btn-primary " + (castingOut ? "animate-pulse" : "")}
+      className={"btn btn-lg  btn-primary " + (castingOut ? "animate-pulse" : "")}
       onClick={() => {
         setCastingOut(true);
         castOut();
@@ -117,20 +121,32 @@ const FishingHoleCatchAll: NextPage = () => {
   const [reelingIn, setReelingIn] = useState(false);
 
   const reelInButton = (
-    <button
-      disabled={reelingIn}
-      className={"btn btn-lg btn-primary " + (reelingIn ? "animate-pulse" : "")}
-      onClick={() => {
-        setReelingIn(true);
-        reelIn();
-        setTimeout(() => {
-          setReelingIn(false);
-        }, 15000);
-        setFoundBlockWithBite(0n);
-      }}
-    >
-      🎣 REEL IN!!!
-    </button>
+    <div>
+      <Confetti
+        numberOfPieces={69}
+        gravity={0.42}
+        width={width}
+        height={height}
+        drawShape={ctx => {
+          ctx.font = "28px Arial";
+          ctx.fillText("🐟", 0, 0);
+        }}
+      />
+      <button
+        disabled={reelingIn}
+        className={"btn btn-lg btn-primary " + (reelingIn ? "animate-pulse" : "")}
+        onClick={() => {
+          setReelingIn(true);
+          reelIn();
+          setTimeout(() => {
+            setReelingIn(false);
+          }, 15000);
+          setFoundBlockWithBite(0n);
+        }}
+      >
+        🎣 REEL IN!!!
+      </button>
+    </div>
   );
 
   const [copied, setCopied] = useState(false);
@@ -151,15 +167,19 @@ const FishingHoleCatchAll: NextPage = () => {
           style={{ backgroundImage: "url('/background_baiting.png')" }}
         />
       )}
-      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginTop: "50%" }}>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginTop: "69%" }}>
         <div className="text-3xl z-0 pb-8">🐟{fishCaught?.toString()}</div>
-        {castedOut && castedOutBlock
-          ? castedOutBlock == blockNumber
-            ? "casting..."
-            : foundBlockWithBite > 0n && foundBlockWithBite > castedOutBlock
-            ? reelInButton
-            : "waiting for a bite..."
-          : castOutButton}
+        {castedOut && castedOutBlock ? (
+          castedOutBlock == blockNumber ? (
+            <span className="loading loading-dots loading-lg"></span>
+          ) : foundBlockWithBite > 0n && foundBlockWithBite > castedOutBlock ? (
+            reelInButton
+          ) : (
+            <span className="loading loading-dots loading-lg"></span>
+          )
+        ) : (
+          castOutButton
+        )}
       </div>
       <div className="z-0">
         <AccountDisplay />
