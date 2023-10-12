@@ -4,6 +4,7 @@ import AccountDisplay from "./accountdisplay";
 import type { NextPage } from "next";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import QRCode from "react-qr-code";
+import { useLocalStorage } from "usehooks-ts";
 import { stringToHex } from "viem";
 import { useAccount, useBlockNumber } from "wagmi";
 import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
@@ -14,6 +15,15 @@ const domain = "https://fishingparty.xyz/";
 
 const FishingHoleCatchAll: NextPage = () => {
   const router = useRouter();
+
+  const [knownFishingHoles, setKnownFishingHoles] = useLocalStorage("knownFishingHoles", [""]);
+
+  useEffect(() => {
+    if (router.query.fishingholes && !knownFishingHoles?.includes("" + router.query.fishingholes)) {
+      knownFishingHoles.push("" + router.query.fishingholes);
+      setKnownFishingHoles(knownFishingHoles.reverse());
+    }
+  });
 
   const bytesStringForRoom = stringToHex("" + router.query.fishingholes, { size: 32 });
 
@@ -109,7 +119,7 @@ const FishingHoleCatchAll: NextPage = () => {
   const reelInButton = (
     <button
       disabled={reelingIn}
-      className={"btn btn-primary " + (reelingIn ? "animate-pulse" : "")}
+      className={"btn btn-lg btn-primary " + (reelingIn ? "animate-pulse" : "")}
       onClick={() => {
         setReelingIn(true);
         reelIn();
@@ -132,18 +142,17 @@ const FishingHoleCatchAll: NextPage = () => {
       <MetaHeader />
       {castedOut ? (
         <div
-          className="absolute bg-cover w-screen bg-no-repeat z-10"
-          style={{ minHeight: 420, maxWidth: 680, backgroundImage: "url('/background_fishing.png')" }}
+          className="absolute bg-cover h-screen w-screen bg-no-repeat z-0"
+          style={{ backgroundImage: "url('/background_fishing.png')" }}
         />
       ) : (
         <div
-          className="absolute bg-cover w-screen bg-no-repeat z-10"
-          style={{ minHeight: 420, maxWidth: 680, backgroundImage: "url('/background_baiting.png')" }}
+          className="absolute bg-cover h-screen w-screen bg-no-repeat z-0"
+          style={{ backgroundImage: "url('/background_baiting.png')" }}
         />
       )}
-
-      <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingTop: "50%" }}>
-        <div className="text-3xl z-30 pb-8">🐟{fishCaught?.toString()}</div>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginTop: "50%" }}>
+        <div className="text-3xl z-0 pb-8">🐟{fishCaught?.toString()}</div>
         {castedOut && castedOutBlock
           ? castedOutBlock == blockNumber
             ? "casting..."
@@ -152,10 +161,10 @@ const FishingHoleCatchAll: NextPage = () => {
             : "waiting for a bite..."
           : castOutButton}
       </div>
-
-      <AccountDisplay />
-
-      <div className="flex items-center flex-col flex-grow pt-10 z-30 ">
+      <div className="z-0">
+        <AccountDisplay />
+      </div>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0">
         <div className="text-xs p-4 pt-10">scan this to join:</div>
         <div className="p-2" style={{ backgroundColor: "#FFF" }}>
           <QRCode size={128} value={domain + router.query.fishingholes} />
@@ -185,10 +194,8 @@ const FishingHoleCatchAll: NextPage = () => {
           )}
         </div>
       </div>
-
-      <div className="flex items-center flex-col flex-grow pt-10 z-30">block: {blockNumber?.toString()}</div>
-
-      <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingBottom: 200 }}>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0">block: {blockNumber?.toString()}</div>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginBottom: 200 }}>
         {" "}
         <button
           className={"btn btn-secondary "}
@@ -199,8 +206,7 @@ const FishingHoleCatchAll: NextPage = () => {
           🔄 reload
         </button>
       </div>
-
-      <div className="flex items-center flex-col flex-grow pt-10 z-30" style={{ paddingBottom: 200 }}>
+      <div className="flex items-center flex-col flex-grow pt-10 z-0" style={{ marginBottom: 200 }}>
         {" "}
         <button
           className={"btn btn-secondary "}
