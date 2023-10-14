@@ -21,12 +21,14 @@ const AccountDisplay: NextPage = () => {
 
   console.log("yourContractInfo", yourContractInfo);
 
-  const { data: balances } = useScaffoldContractRead({
+  const { data: balanceInfo } = useScaffoldContractRead({
     contractName: "YourContract",
     functionName: "balancesOf",
     args: [bytesStringForRoom, accountList],
   });
-  console.log("🐟 balances", balances);
+
+  const balances = balanceInfo && balanceInfo[0];
+  const weights = balanceInfo && balanceInfo[1];
 
   const executeFunction = async () => {
     console.log("✅ Checked in!");
@@ -63,17 +65,26 @@ const AccountDisplay: NextPage = () => {
     }
 
     const accountsWithBalances = accountList.map((account: any, index: number) => {
-      return { account: account, balance: balances ? balances[index] : 0 };
+      // @ts-ignore
+      return { account: account, balance: balances ? balances[index] : 0, weight: weights ? weights[index] : 0 };
     });
 
     const sortedAccountsWithBalances = accountsWithBalances.sort((a: any, b: any) => {
-      return b.balance > a.balance ? 1 : -1;
+      return b.weight > a.weight ? 1 : -1;
     });
 
     const newAccountDisplay = sortedAccountsWithBalances
       ?.map((item: any) => {
         if (item) {
-          return <Fisher key={item.account} playerAddress={address} fisherAddress={item.account} />;
+          console.log("ITERM WEITH", item);
+          return (
+            <Fisher
+              key={item.account}
+              playerAddress={address}
+              fisherAddress={item.account}
+              fisherTotalWeight={item.weight.toString()}
+            />
+          );
         }
       })
       .filter(Boolean); // filter out any undefined values

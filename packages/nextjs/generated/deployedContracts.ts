@@ -5,7 +5,7 @@ const contracts = {
       name: "gnosis",
       contracts: {
         YourContract: {
-          address: "0x3F930d5871e677ACF42b0D3b577F93Ece8EAb03d",
+          address: "0xa96C7255301024d5c2f40d0773ACAeAd49611749",
           abi: [
             {
               inputs: [
@@ -46,6 +46,11 @@ const contracts = {
               ],
               name: "balancesOf",
               outputs: [
+                {
+                  internalType: "uint256[]",
+                  name: "",
+                  type: "uint256[]",
+                },
                 {
                   internalType: "uint256[]",
                   name: "",
@@ -124,6 +129,59 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "bytes32",
+                  name: "_fish",
+                  type: "bytes32",
+                },
+              ],
+              name: "determineFishStats",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "fishSize",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "address",
                   name: "",
                   type: "address",
@@ -163,8 +221,13 @@ const contracts = {
                   type: "bytes32",
                 },
               ],
-              name: "getAllFishTypes",
+              name: "getAllFishInfo",
               outputs: [
+                {
+                  internalType: "uint256[]",
+                  name: "",
+                  type: "uint256[]",
+                },
                 {
                   internalType: "uint256[]",
                   name: "",
@@ -190,6 +253,30 @@ const contracts = {
               name: "reelIn",
               outputs: [],
               stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
+              ],
+              name: "totalFishWeight",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
           ],
@@ -203,7 +290,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0x5eb3Bc0a489C5A8288765d2336659EbCA68FCd00",
+          address: "0xc9952Fc93Fa9bE383ccB39008c786b9f94eAc95d",
           abi: [
             {
               inputs: [
@@ -244,6 +331,11 @@ const contracts = {
               ],
               name: "balancesOf",
               outputs: [
+                {
+                  internalType: "uint256[]",
+                  name: "",
+                  type: "uint256[]",
+                },
                 {
                   internalType: "uint256[]",
                   name: "",
@@ -322,6 +414,59 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "bytes32",
+                  name: "_fish",
+                  type: "bytes32",
+                },
+              ],
+              name: "determineFishStats",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "fishSize",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "address",
                   name: "",
                   type: "address",
@@ -361,8 +506,13 @@ const contracts = {
                   type: "bytes32",
                 },
               ],
-              name: "getAllFishTypes",
+              name: "getAllFishInfo",
               outputs: [
+                {
+                  internalType: "uint256[]",
+                  name: "",
+                  type: "uint256[]",
+                },
                 {
                   internalType: "uint256[]",
                   name: "",
@@ -388,6 +538,30 @@ const contracts = {
               name: "reelIn",
               outputs: [],
               stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "",
+                  type: "bytes32",
+                },
+              ],
+              name: "totalFishWeight",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
           ],

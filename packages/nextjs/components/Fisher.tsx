@@ -6,7 +6,15 @@ import { parseEther, stringToHex } from "viem";
 import { useAccount, usePublicClient, useSendTransaction } from "wagmi";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
-export const Fisher = ({ playerAddress, fisherAddress }: { playerAddress?: string; fisherAddress?: string }) => {
+export const Fisher = ({
+  playerAddress,
+  fisherAddress,
+  fisherTotalWeight,
+}: {
+  playerAddress?: string;
+  fisherAddress?: string;
+  fisherTotalWeight?: string;
+}) => {
   const router = useRouter();
 
   const bytesStringForRoom = stringToHex("" + router.query.fishingholes, { size: 32 });
@@ -18,11 +26,12 @@ export const Fisher = ({ playerAddress, fisherAddress }: { playerAddress?: strin
     value: parseEther("0.01"),
   });
 
-  const { data: allFishTypes } = useScaffoldContractRead({
+  const { data: getAllFishInfo } = useScaffoldContractRead({
     contractName: "YourContract",
-    functionName: "getAllFishTypes",
+    functionName: "getAllFishInfo",
     args: [fisherAddress, bytesStringForRoom],
   });
+  console.log("getAllFishInfo", getAllFishInfo);
 
   const [balance, setBalance] = useState(0n);
 
@@ -47,32 +56,46 @@ export const Fisher = ({ playerAddress, fisherAddress }: { playerAddress?: strin
 
   const [fishRender, setFishRender] = useState(<div></div>);
 
+  const allFishTypes = getAllFishInfo && getAllFishInfo[0];
+  const allFishWeights = getAllFishInfo && getAllFishInfo[1];
+
   console.log("allFishTypes", allFishTypes);
   useEffect(() => {
     if (allFishTypes) {
       const newFishRender = [];
+      // @ts-ignore
       for (let i = 0; i < allFishTypes?.length; i++) {
+        // @ts-ignore
+        const thisFishWeight = allFishWeights && allFishWeights[i];
+        console.log("thisFishWeight", thisFishWeight);
+        // @ts-ignore
+        const thisFishSvg = "/fish" + allFishTypes[i].toString() + ".svg";
         newFishRender.push(
-          <img
-            key={i}
-            style={{ transform: "scale(0.5)", margin: "-3%" }}
-            src={"/fish" + allFishTypes[i].toString() + ".svg"}
-          />,
+          <div className="relative flex flex-row mt-2">
+            <div className="absolute">{thisFishWeight.toString()}</div>
+            <img
+              key={i}
+              style={{ transform: "scale(1)", marginRight: 10, marginLeft: "calc(4% + 6px)" }}
+              src={thisFishSvg}
+            />
+          </div>,
         );
       }
       setFishRender(<>{newFishRender}</>);
     }
   }, [allFishTypes]);
 
+  console.log("playerAddress", playerAddress);
+
   return (
-    <div
-      key={fisherAddress}
-      className={"p-6 " + (playerAddress == fisherAddress ? "border-dotted border-2 border-white" : "")}
-    >
+    <div key={fisherAddress} className={"p-6 "}>
       <Address address={fisherAddress} />
       {balance >= parseEther("0.007") ? (
         <div className="flex pb-10">
-          <Balance address={fisherAddress} />
+          <div>
+            <Balance address={fisherAddress} />
+          </div>
+          <div>score: {fisherTotalWeight}</div>
           <div className="absolute flex flex-row mt-5">{fishRender}</div>
         </div>
       ) : address?.toLowerCase() === fisherAddress?.toLowerCase() ? (
