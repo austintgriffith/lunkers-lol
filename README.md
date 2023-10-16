@@ -1,4 +1,4 @@
-# 🎣 FishingParty.xyz
+# 🎣 lunkers.lol
 
 Casual group game to teach Ethereum asset custody using burner wallets as PWAs
 

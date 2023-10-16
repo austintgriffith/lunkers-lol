@@ -1,10 +1,10 @@
 {
 
-    "name": "FishingParty",
+    "name": "lunkers.lol",
 
-    "short_name": "FishingParty",
+    "short_name": "lunkers",
 
-    "description": "catch lunkers with your friends onchain",
+    "description": "go fishing with your friends onchain",
 
     "start_url": "/",
 
