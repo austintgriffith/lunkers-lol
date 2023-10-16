@@ -13,7 +13,7 @@ import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outl
 import { MetaHeader } from "~~/components/MetaHeader";
 import { useScaffoldContract, useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
-const domain = "https://fishingparty.xyz/";
+const domain = "https://lunkers.lol/";
 
 const FishingHoleCatchAll: NextPage = () => {
   const router = useRouter();
