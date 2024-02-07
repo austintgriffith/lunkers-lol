@@ -290,7 +290,7 @@ const contracts = {
       name: "localhost",
       contracts: {
         YourContract: {
-          address: "0xc9952Fc93Fa9bE383ccB39008c786b9f94eAc95d",
+          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
           abi: [
             {
               inputs: [
