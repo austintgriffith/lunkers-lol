@@ -2,6 +2,8 @@
 
 Casual group game to teach Ethereum asset custody using burner wallets as PWAs
 
+![Screen Shot 2023-10-16 at 6 13 46 PM](https://github.com/austintgriffith/lunkers-lol/assets/2653167/e9067fc2-dc81-4b02-a10d-f5a706a2ea2e)
+
 Start game takes you to random route where other people can join - you act as a gas dropper for people that join (can you install a specific fishing hole to your Home Screen? Do we force it?)
 
 Screen to show fishing pond to set the vibe (share button on fishing pond and list of people there with their total weight caught) 
